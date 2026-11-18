@@ -1,0 +1,322 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { EmptyState } from '@/components/ui/empty-state';
+import { CardShadow, Radius } from '@/constants/layout';
+import { BottomTabInset, Fonts } from '@/constants/theme';
+import * as mobileAuthService from '@/services/mobile-auth-service';
+import * as selfOrderingService from '@/services/self-ordering-service';
+import { useAppTheme } from '@/state/theme-context';
+
+function formatTime(isoTimestamp?: string) {
+  if (!isoTimestamp) return '';
+  try {
+    const dt = new Date(isoTimestamp);
+    const hour = dt.getHours() % 12 === 0 ? 12 : dt.getHours() % 12;
+    const minute = String(dt.getMinutes()).padStart(2, '0');
+    const period = dt.getHours() >= 12 ? 'PM' : 'AM';
+    return ;
+  } catch {
+    return isoTimestamp;
+  }
+}
+
+export default function OrderTrackingScreen() {
+  const { colors } = useAppTheme();
+  const [ordersList, setOrdersList] = useState<Record<string, any>[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const load = useCallback(async (silent = false) => {
+    if (!silent) setIsLoading(true);
+    try {
+      const allOrders: any[] = [];
+
+      // 1. Fetch guest/session order status first
+      try {
+        const sessionOrderStatus = await selfOrderingService.getOrderStatus();
+        if (sessionOrderStatus && sessionOrderStatus.invoice) {
+          allOrders.push(sessionOrderStatus);
+        }
+      } catch (e) {
+        // session order fetch ignored if no active session
+      }
+
+      // 2. Fetch logged-in mobile customer order history
+      try {
+        const loggedIn = await mobileAuthService.isLoggedIn();
+        if (loggedIn) {
+          const history = await mobileAuthService.getOrderHistory(20);
+          if (Array.isArray(history) && history.length > 0) {
+            for (const hOrder of history) {
+              const invName = hOrder.invoice || hOrder.name;
+              if (!allOrders.some((o) => (o.invoice || o.name) === invName)) {
+                allOrders.push({
+                  invoice: invName,
+                  name: invName,
+                  order_type: hOrder.order_type || 'Delivery',
+                  table: hOrder.restaurant_table || '',
+                  order_placed_at: hOrder.posting_date ?  : '',
+                  order_rejected: hOrder.order_rejected || false,
+                  rejection_reason: hOrder.rejection_reason || '',
+                  status: hOrder.status || 'Order Received',
+                  raw_status: hOrder.raw_status || '',
+                  kitchen_status: hOrder.kitchen_status || '',
+                  delivery_status: hOrder.delivery_status || '',
+                  stages: hOrder.stages || [],
+                  items: hOrder.items || [],
+                  grand_total: hOrder.grand_total || 0,
+                  billed: hOrder.status === 'Completed' || hOrder.status === 'Paid',
+                });
+              }
+            }
+          }
+        }
+      } catch (e) {
+        // mobile auth history fetch ignored if error
+      }
+
+      setOrdersList(allOrders);
+      setError(null);
+    } catch {
+      if (!silent) setError('Could not load order status.');
+    } finally {
+      setIsLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+    pollRef.current = setInterval(() => load(true), 10000);
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+  }, [load]);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={[styles.center, { backgroundColor: colors.background }]}>
+        <ActivityIndicator color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={[styles.center, { backgroundColor: colors.background }]}>
+        <Text style={{ color: colors.textSecondary }}>{error}</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (ordersList.length === 0) {
+    return (
+      <SafeAreaView style={[styles.center, { backgroundColor: colors.background }]}>
+        <EmptyState
+          icon=receipt-outline
+          title=No active order
+          message=Place an order to see live status and tracking progress here.
+        />
+      </SafeAreaView>
+    );
+  }
+
+  const currentOrder = ordersList[selectedIndex] || ordersList[0];
+  const stages: any[] = currentOrder.stages ?? [];
+  const currentStage = stages.find((s) => s.current === true) ?? { label: currentOrder.status || 'Order Placed' };
+  const orderType = currentOrder.order_type ?? (currentOrder.table ? 'Dine In' : 'Take Away');
+  const subtitle = currentOrder.table ?  : orderType;
+  const items: any[] = currentOrder.items ?? [];
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              load();
+            }}
+            tintColor={colors.primary}
+          />
+        }>
+
+        {/* Order Selector Tabs if multiple orders exist */}
+        {ordersList.length > 1 && (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.orderSelector}>
+            {ordersList.map((ord, idx) => {
+              const isSelected = idx === selectedIndex;
+              const ordInv = ord.invoice || ord.name;
+              return (
+                <Pressable
+                  key={ordInv}
+                  onPress={() => setSelectedIndex(idx)}
+                  style={[
+                    styles.orderPill,
+                    {
+                      backgroundColor: isSelected ? colors.primary : colors.surface,
+                      borderColor: isSelected ? colors.primary : colors.border,
+                    },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.orderPillText,
+                      { color: isSelected ? '#FFFFFF' : colors.text, fontWeight: isSelected ? '700' : '500' },
+                    ]}>
+                    {ordInv}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.orderPillSub,
+                      { color: isSelected ? '#E2F8E8' : colors.textSecondary },
+                    ]}>
+                    {ord.status || 'Active'}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        )}
+
+        {/* Header Summary Card */}
+        <View style={[styles.headerCard, { backgroundColor: colors.surface }, CardShadow]}>
+          <View style={styles.headerRow}>
+            <Text style={[styles.invoiceBadge, { color: colors.primary, backgroundColor:  }]}>
+              {currentOrder.invoice || currentOrder.name}
+            </Text>
+            <View style={[styles.statusBadge, { backgroundColor: currentOrder.order_rejected ? '#FEF2F2' :  }]}>
+              <Text style={{ color: currentOrder.order_rejected ? '#DC2626' : colors.primary, fontSize: 11, fontWeight: '700' }}>
+                {currentOrder.status || 'Active'}
+              </Text>
+            </View>
+          </View>
+
+          <Text style={[styles.headline, { color: colors.text, marginTop: 10 }]}>{currentStage.label}</Text>
+          <Text style={{ color: colors.textSecondary, fontSize: 13, marginTop: 4 }}>{subtitle}</Text>
+          {currentOrder.order_placed_at && (
+            <Text style={{ color: colors.textSecondary, fontSize: 12, marginTop: 4 }}>
+              Placed: {formatTime(currentOrder.order_placed_at)}
+            </Text>
+          )}
+
+          {currentOrder.order_rejected === true && currentOrder.rejection_reason && (
+            <Text style={{ color: '#E06B6B', fontSize: 13, marginTop: 10 }}>
+              Reason: {currentOrder.rejection_reason}
+            </Text>
+          )}
+        </View>
+
+        {/* Timeline Stepper */}
+        {stages.length > 0 && (
+          <View style={styles.timeline}>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>LIVE TRACKING</Text>
+            {stages.map((stage, index) => {
+              const isDone = stage.done === true;
+              const isCurrent = stage.current === true;
+              const isLast = index === stages.length - 1;
+              return (
+                <View key={index} style={styles.timelineRow}>
+                  <View style={styles.markerColumn}>
+                    <StageMarker isDone={isDone} isCurrent={isCurrent} />
+                    {!isLast && (
+                      <View
+                        style={[
+                          styles.connector,
+                          { backgroundColor: isDone ? colors.primary : colors.border },
+                        ]}
+                      />
+                    )}
+                  </View>
+                  <Text
+                    style={[
+                      styles.stageLabel,
+                      {
+                        color: isDone || isCurrent ? colors.text : colors.textSecondary,
+                        fontWeight: isCurrent ? '700' : isDone ? '500' : '400',
+                      },
+                    ]}>
+                    {stage.label ?? ''}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {/* Order Items Card */}
+        {items.length > 0 && (
+          <View style={[styles.itemsCard, { backgroundColor: colors.surface }, CardShadow]}>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary, marginBottom: 12 }]}>ORDER ITEMS</Text>
+            {items.map((it, idx) => (
+              <View key={idx} style={styles.itemRow}>
+                <Text style={{ flex: 1, color: colors.text, fontSize: 13.5, fontWeight: '500' }}>
+                  {it.qty}x {it.item_name}
+                </Text>
+                <Text style={{ color: colors.text, fontSize: 13.5, fontWeight: '600' }}>
+                  Rs {it.amount || (it.qty * (it.rate || 0))}
+                </Text>
+              </View>
+            ))}
+
+            {currentOrder.grand_total > 0 && (
+              <View style={[styles.totalRow, { borderTopColor: colors.border }]}>
+                <Text style={{ color: colors.text, fontSize: 14, fontWeight: '700' }}>Total</Text>
+                <Text style={{ color: colors.primary, fontSize: 16, fontWeight: '800' }}>
+                  Rs {Number(currentOrder.grand_total).toFixed(0)}
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
+
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+function StageMarker({ isDone, isCurrent }: { isDone: boolean; isCurrent: boolean }) {
+  const { colors } = useAppTheme();
+  if (isCurrent) return <View style={[styles.dotMarker, { backgroundColor: colors.primary }]} />;
+  if (isDone) return <Ionicons name=checkmark-circle size={16} color={colors.primary} />;
+  return <View style={[styles.dotMarker, styles.dotMarkerEmpty, { borderColor: colors.border }]} />;
+}
+
+const styles = StyleSheet.create({
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  content: { padding: 20, paddingBottom: 20 + BottomTabInset },
+  orderSelector: { marginBottom: 16 },
+  orderPill: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    marginRight: 8,
+    alignItems: 'center',
+  },
+  orderPillText: { fontSize: 13 },
+  orderPillSub: { fontSize: 10, marginTop: 2 },
+  headerCard: { padding: 20, borderRadius: Radius.lg },
+  headerRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  invoiceBadge: { fontSize: 12, fontWeight: '800', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6 },
+  statusBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 12 },
+  headline: { fontSize: 20, fontWeight: '700', fontFamily: Fonts.displayBold },
+  sectionTitle: { fontSize: 11, letterSpacing: 1.2, fontWeight: '700' },
+  timeline: { marginTop: 24, paddingLeft: 4 },
+  timelineRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 16, marginTop: 12 },
+  markerColumn: { alignItems: 'center', width: 16 },
+  dotMarker: { width: 14, height: 14, borderRadius: 7 },
+  dotMarkerEmpty: { backgroundColor: 'transparent', borderWidth: 2 },
+  connector: { width: 2, flex: 1, minHeight: 24 },
+  stageLabel: { flex: 1, fontSize: 14, paddingBottom: 16 },
+  itemsCard: { marginTop: 20, padding: 18, borderRadius: Radius.lg },
+  itemRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, paddingTop: 12, borderTopWidth: 1 },
+});

@@ -1,0 +1,426 @@
+import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { GoogleMapView } from '@/components/map/google-map-view';
+import { PrimaryButton } from '@/components/ui/primary-button';
+import { Radius } from '@/constants/layout';
+import { Fonts } from '@/constants/theme';
+import { useAppTheme } from '@/state/theme-context';
+
+type Props = {
+  visible: boolean;
+  onClose: () => void;
+  onConfirmLocation: (location: { address: string; city: string; mapsUrl: string; lat: number; lng: number }) => void;
+};
+
+type SuggestionItem = {
+  title: string;
+  subTitle: string;
+  lat: number;
+  lng: number;
+  fullAddress: string;
+};
+
+export function GoogleMapPickerModal({ visible, onClose, onConfirmLocation }: Props) {
+  const { colors } = useAppTheme();
+  const insets = useSafeAreaInsets();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
+  const [lat, setLat] = useState(31.5204);
+  const [lng, setLng] = useState(74.3587);
+  const [addressLine, setAddressLine] = useState('Main Boulevard, Gulberg III');
+  const [city, setCity] = useState('Lahore');
+  const [isSearching, setIsSearching] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
+
+  // Auto-fetch location suggestions while typing
+  useEffect(() => {
+    if (!searchQuery.trim() || searchQuery.trim().length < 3) {
+      setSuggestions([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery.trim())}&addressdetails=1&limit=5`
+        );
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          const parsed: SuggestionItem[] = data.map((item: any) => {
+            const parts = item.display_name.split(',');
+            const title = parts.slice(0, 2).join(', ').trim();
+            const subTitle = parts.slice(2, 5).join(', ').trim();
+            return {
+              title: title || item.display_name,
+              subTitle: subTitle,
+              lat: parseFloat(item.lat),
+              lng: parseFloat(item.lon),
+              fullAddress: item.display_name,
+            };
+          });
+          setSuggestions(parsed);
+        }
+      } catch {
+        setSuggestions([]);
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Standard reverse-geocoding: builds the COMPLETE written address (house/
+  // street, area, city, region, country) into the one address field the
+  // customer sees — not just a truncated street+district fragment. The
+  // Google Maps link (lat/lng) is captured separately by handleConfirm
+  // below; this only fixes how complete the human-readable text is.
+  const reverseGeocode = async (latitude: number, longitude: number) => {
+    try {
+      const results = await Location.reverseGeocodeAsync({ latitude, longitude });
+      if (results && results.length > 0) {
+        const item = results[0];
+
+        const street = [item.streetNumber, item.street || item.name].filter(Boolean).join(' ');
+        const parts = [street, item.district, item.subregion, item.city, item.region, item.postalCode, item.country]
+          .filter((v): v is string => !!v && v.trim().length > 0)
+          .filter((v, i, a) => a.indexOf(v) === i);
+        const builtAddress = parts.join(', ').trim();
+
+        // item.formattedAddress (when the OS geocoder provides one) is
+        // already the complete postal-style address — prefer it over our
+        // own reconstruction, which is only a fallback for platforms/
+        // results that don't populate it.
+        const formattedAddress = item.formattedAddress || builtAddress || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+
+        // Extract City: Prioritize city, town, subregion, district OVER region (state)
+        const extractedCity = item.city || item.subregion || item.district || 'Lahore';
+
+        setAddressLine(formattedAddress);
+        setCity(extractedCity);
+        return;
+      }
+    } catch {}
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      );
+      const data = await res.json();
+      if (data && data.display_name) {
+        const addr = data.address || {};
+
+        // display_name is Nominatim's own complete, comma-separated
+        // address (house number through country) — using it directly
+        // instead of reconstructing just road+area keeps this fallback
+        // path just as complete as the primary expo-location path above.
+        setAddressLine(data.display_name);
+
+        const extractedCity =
+          addr.city ||
+          addr.town ||
+          addr.village ||
+          addr.municipality ||
+          addr.county ||
+          addr.district ||
+          'Lahore';
+
+        setCity(extractedCity);
+      }
+    } catch {
+      setAddressLine(`Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
+    }
+  };
+
+  const updateCoordinates = (newLat: number, newLng: number, triggerReverse = true) => {
+    setLat(newLat);
+    setLng(newLng);
+    if (triggerReverse) {
+      reverseGeocode(newLat, newLng);
+    }
+  };
+
+  // Get user's current location via Expo Location API
+  const handleGetCurrentLocation = async () => {
+    setIsLocating(true);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Location permission is required to fetch GPS location.');
+        setIsLocating(false);
+        return;
+      }
+      const loc = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      updateCoordinates(loc.coords.latitude, loc.coords.longitude);
+    } catch (e) {
+      Alert.alert('GPS Location Error', e instanceof Error ? e.message : 'Could not fetch location');
+    } finally {
+      setIsLocating(false);
+    }
+  };
+
+  useEffect(() => {
+    if (visible) {
+      handleGetCurrentLocation();
+    }
+  }, [visible]);
+
+  const searchLocation = async (query: string) => {
+    if (!query.trim()) return;
+    setIsSearching(true);
+    setSuggestions([]);
+    try {
+      const results = await Location.geocodeAsync(query.trim());
+      if (results && results.length > 0) {
+        const item = results[0];
+        updateCoordinates(item.latitude, item.longitude);
+        setIsSearching(false);
+        return;
+      }
+    } catch {}
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query.trim())}`
+      );
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        const item = data[0];
+        updateCoordinates(parseFloat(item.lat), parseFloat(item.lon));
+      }
+    } catch {
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSelectSuggestion = (item: SuggestionItem) => {
+    setSearchQuery(item.title);
+    setSuggestions([]);
+    updateCoordinates(item.lat, item.lng);
+  };
+
+  const handleConfirm = () => {
+    const mapsUrl = `https://maps.google.com/?q=${lat.toFixed(6)},${lng.toFixed(6)}`;
+    onConfirmLocation({
+      address: addressLine,
+      city: city,
+      mapsUrl: mapsUrl,
+      lat: lat,
+      lng: lng,
+    });
+    onClose();
+  };
+
+  return (
+    <Modal visible={visible} animationType="slide" presentationStyle="fullScreen" onRequestClose={onClose}>
+      <View style={[styles.screenContainer, { backgroundColor: colors.surface, paddingTop: Math.max(insets.top, 16) }]}>
+        
+        {/* 1. Header (~50px) */}
+        <View style={[styles.header, { borderBottomColor: colors.border }]}>
+          <View style={styles.headerTitleRow}>
+            <Ionicons name="map-sharp" size={22} color="#EA4335" />
+            <Text style={[styles.title, { color: colors.text }]}>Google Map Location Picker</Text>
+          </View>
+          <Pressable onPress={onClose} style={styles.closeBtn} hitSlop={8}>
+            <Ionicons name="close" size={24} color={colors.textSecondary} />
+          </Pressable>
+        </View>
+
+        {/* 2. Search Container (~55px) */}
+        <View style={styles.searchWrapper}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              onSubmitEditing={() => searchLocation(searchQuery)}
+              placeholder="Search area (e.g. Gulberg III, DHA Phase 5...)"
+              placeholderTextColor={colors.textSecondary}
+              style={[
+                styles.searchInput,
+                { color: colors.text, borderColor: colors.border, backgroundColor: colors.background },
+              ]}
+            />
+            <Pressable
+              style={[styles.searchBtn, { backgroundColor: colors.primary }]}
+              onPress={() => searchLocation(searchQuery)}>
+              {isSearching ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <Ionicons name="search" size={18} color="#fff" />
+              )}
+            </Pressable>
+          </View>
+
+          {/* Location Suggestions Dropdown Overlay */}
+          {suggestions.length > 0 && (
+            <View style={[styles.suggestionsDropdown, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+              {suggestions.map((item, idx) => (
+                <Pressable
+                  key={`${item.lat}-${item.lng}-${idx}`}
+                  style={({ pressed }) => [
+                    styles.suggestionItem,
+                    { borderBottomColor: colors.border },
+                    pressed && { backgroundColor: colors.background },
+                  ]}
+                  onPress={() => handleSelectSuggestion(item)}>
+                  <Ionicons name="location-outline" size={18} color="#EA4335" style={{ marginTop: 2 }} />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.suggestionTitle, { color: colors.text }]} numberOfLines={1}>
+                      {item.title}
+                    </Text>
+                    {!!item.subTitle && (
+                      <Text style={{ color: colors.textSecondary, fontSize: 11, marginTop: 1 }} numberOfLines={1}>
+                        {item.subTitle}
+                      </Text>
+                    )}
+                  </View>
+                </Pressable>
+              ))}
+            </View>
+          )}
+        </View>
+
+        {/* 3. Map Container (flex: 1) -> Takes ALL remaining middle space dynamically! */}
+        <View style={styles.mapContainer}>
+          <GoogleMapView lat={lat} lng={lng} onMapMoved={(nLat: number, nLng: number) => updateCoordinates(nLat, nLng)} />
+
+          {/* Floating GPS Button */}
+          <Pressable
+            style={[styles.gpsBtn, { backgroundColor: colors.surface }]}
+            onPress={handleGetCurrentLocation}>
+            {isLocating ? (
+              <ActivityIndicator size="small" color="#EA4335" />
+            ) : (
+              <Ionicons name="locate-sharp" size={20} color="#EA4335" />
+            )}
+          </Pressable>
+        </View>
+
+        {/* 4. Selected Address Card (~85px) */}
+        <View style={[styles.locationCard, { backgroundColor: colors.background, borderColor: colors.border }]}>
+          <View style={styles.pinRow}>
+            <Ionicons name="location-sharp" size={22} color="#EA4335" />
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.addressTitle, { color: colors.text }]} numberOfLines={2}>
+                {addressLine}
+              </Text>
+              <Text style={{ color: colors.textSecondary, fontSize: 11.5, marginTop: 2 }}>
+                City: {city} | Coords: {lat.toFixed(5)}, {lng.toFixed(5)}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* 5. Confirm Button Container (Padded with safe area bottom) */}
+        <View style={[styles.buttonContainer, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+          <PrimaryButton label="Confirm Google Map Location" onPress={handleConfirm} />
+        </View>
+
+      </View>
+    </Modal>
+  );
+}
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    paddingBottom: 14,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  headerTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  title: { fontSize: 17, fontWeight: '700', fontFamily: Fonts.displayBold },
+  closeBtn: { padding: 4 },
+  searchWrapper: {
+    position: 'relative',
+    zIndex: 20,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  searchInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: Radius.sm,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    fontSize: 13.5,
+  },
+  searchBtn: { paddingHorizontal: 16, borderRadius: Radius.sm, alignItems: 'center', justifyContent: 'center' },
+  suggestionsDropdown: {
+    position: 'absolute',
+    top: 58,
+    left: 16,
+    right: 16,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    zIndex: 1000,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    overflow: 'hidden',
+  },
+  suggestionItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  suggestionTitle: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  mapContainer: {
+    flex: 1,
+    marginHorizontal: 16,
+    borderRadius: Radius.md,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  gpsBtn: {
+    position: 'absolute',
+    bottom: 14,
+    right: 14,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  locationCard: {
+    borderWidth: 1,
+    borderRadius: Radius.md,
+    padding: 14,
+    marginHorizontal: 16,
+    marginTop: 12,
+    marginBottom: 8,
+  },
+  pinRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  addressTitle: { fontSize: 14, fontWeight: '700' },
+  buttonContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 8,
+  },
+});

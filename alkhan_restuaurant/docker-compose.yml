@@ -1,0 +1,192 @@
+services:
+  alkhan_restuaurant-db:
+    image: mariadb:10.6
+    container_name: alkhan_restuaurant-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: CHANGE_ME_DB_ROOT_PASSWORD
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    volumes:
+      - alkhan_restuaurant-db-data:/var/lib/mysql
+    networks:
+      - alkhan_restuaurant-net
+
+  alkhan_restuaurant-redis-cache:
+    image: redis:6.2-alpine
+    container_name: alkhan_restuaurant-redis-cache
+    restart: unless-stopped
+    networks:
+      - alkhan_restuaurant-net
+
+  alkhan_restuaurant-redis-queue:
+    image: redis:6.2-alpine
+    container_name: alkhan_restuaurant-redis-queue
+    restart: unless-stopped
+    volumes:
+      - alkhan_restuaurant-redis-queue-data:/data
+    networks:
+      - alkhan_restuaurant-net
+
+  alkhan_restuaurant-configurator:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-configurator
+    networks:
+      - alkhan_restuaurant-net
+    deploy:
+      restart_policy:
+        condition: none
+    entrypoint:
+      - bash
+      - -c
+    command:
+      - >
+        ls -1 apps > sites/apps.txt;
+        bench set-config -g db_host $$DB_HOST;
+        bench set-config -gp db_port $$DB_PORT;
+        bench set-config -g redis_cache "redis://$$REDIS_CACHE";
+        bench set-config -g redis_queue "redis://$$REDIS_QUEUE";
+        bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
+        bench set-config -gp socketio_port $$SOCKETIO_PORT;
+    environment:
+      DB_HOST: alkhan_restuaurant-db
+      DB_PORT: "3306"
+      REDIS_CACHE: alkhan_restuaurant-redis-cache:6379
+      REDIS_QUEUE: alkhan_restuaurant-redis-queue:6379
+      SOCKETIO_PORT: "9000"
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-create-site:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-create-site
+    networks:
+      - alkhan_restuaurant-net
+    deploy:
+      restart_policy:
+        condition: none
+    depends_on:
+      - alkhan_restuaurant-configurator
+    entrypoint:
+      - bash
+      - -c
+    command:
+      - >
+        wait-for-it -t 120 alkhan_restuaurant-db:3306;
+        wait-for-it -t 120 alkhan_restuaurant-redis-cache:6379;
+        wait-for-it -t 120 alkhan_restuaurant-redis-queue:6379;
+        export start=$$(date +%s);
+        until [[ -n $$(grep -hs ^ sites/common_site_config.json | grep "db_host") ]] && [[ -n $$(grep -hs ^ sites/common_site_config.json | grep "redis_cache") ]]; do
+          echo "Waiting for sites/common_site_config.json to be created";
+          sleep 5;
+          if (( $$(date +%s)-start > 120 )); then
+            echo "could not find sites/common_site_config.json with required keys";
+            exit 1
+          fi
+        done;
+        echo "sites/common_site_config.json found";
+        bench new-site alkhan.local
+        --mariadb-user-host-login-scope=%
+        --admin-password=CHANGE_ME_ADMIN_PASSWORD
+        --db-root-username=root
+        --db-root-password=CHANGE_ME_DB_ROOT_PASSWORD
+        --no-mariadb-socket;
+        bench --site alkhan.local install-app erpnext hrms ury;
+        bench --site alkhan.local set-config developer_mode 0;
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-backend:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-backend
+    restart: unless-stopped
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-websocket:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-websocket
+    restart: unless-stopped
+    command: ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"]
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-queue-short:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-queue-short
+    restart: unless-stopped
+    command: ["bench", "worker", "--queue", "short,default"]
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-queue-long:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-queue-long
+    restart: unless-stopped
+    command: ["bench", "worker", "--queue", "long,default,short"]
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-scheduler:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-scheduler
+    restart: unless-stopped
+    command: ["bench", "schedule"]
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+  alkhan_restuaurant-frontend:
+    image: alkhan_restuaurant-custom:latest
+    container_name: alkhan_restuaurant-frontend
+    restart: unless-stopped
+    command:
+      - nginx-entrypoint.sh
+    environment:
+      BACKEND: alkhan_restuaurant-backend:8000
+      FRAPPE_SITE_NAME_HEADER: alkhan.local
+      SOCKETIO: alkhan_restuaurant-websocket:9000
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: "off"
+      PROXY_READ_TIMEOUT: "120"
+      CLIENT_MAX_BODY_SIZE: 50m
+    ports:
+      - "8090:8080"
+    networks:
+      - alkhan_restuaurant-net
+    depends_on:
+      - alkhan_restuaurant-create-site
+    volumes:
+      - alkhan_restuaurant-sites:/home/frappe/frappe-bench/sites
+
+networks:
+  alkhan_restuaurant-net:
+    name: alkhan_restuaurant-net
+
+volumes:
+  alkhan_restuaurant-db-data:
+  alkhan_restuaurant-redis-queue-data:
+  alkhan_restuaurant-sites:

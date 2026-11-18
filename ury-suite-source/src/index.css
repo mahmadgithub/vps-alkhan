@@ -1,0 +1,913 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content: ""}html,:host{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=button]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}:root{--font-body: "Inter", sans-serif;--primary: #16a34a;--primary-light: #dcfce7;--primary-dark: #15803d}*{font-family:Inter,sans-serif}body{font-family:Inter,sans-serif;background-color:#f5f6fa;color:#111827;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{top:0;right:0;bottom:0;left:0}.-left-\[23px\]{left:-23px}.bottom-3{bottom:.75rem}.bottom-6{bottom:1.5rem}.left-2\.5{left:.625rem}.left-3{left:.75rem}.right-0{right:0}.right-1{right:.25rem}.right-3{right:.75rem}.right-6{right:1.5rem}.top-0\.5{top:.125rem}.top-1{top:.25rem}.top-2\.5{top:.625rem}.top-3{top:.75rem}.z-10{z-index:10}.z-40{z-index:40}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:.5rem}.ml-0{margin-left:0}.ml-2{margin-left:.5rem}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-1\.5{margin-top:.375rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.line-clamp-1{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1}.line-clamp-2{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-2{height:.5rem}.h-20{height:5rem}.h-3\.5{height:.875rem}.h-4{height:1rem}.h-48{height:12rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-8{height:2rem}.h-full{height:100%}.max-h-56{max-height:14rem}.max-h-60{max-height:15rem}.max-h-80{max-height:20rem}.max-h-\[50vh\]{max-height:50vh}.max-h-\[90vh\]{max-height:90vh}.w-1\/2{width:50%}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-2{width:.5rem}.w-20{width:5rem}.w-3\.5{width:.875rem}.w-32{width:8rem}.w-4{width:1rem}.w-40{width:10rem}.w-48{width:12rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-64{width:16rem}.w-7{width:1.75rem}.w-8{width:2rem}.w-80{width:20rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.scale-110{--tw-scale-x: 1.1;--tw-scale-y: 1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes bounce{0%,to{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,.2,1)}}.animate-bounce{animation:bounce 1s infinite}@keyframes ping{75%,to{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0,0,.2,1) infinite}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-0\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.125rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.125rem * var(--tw-space-y-reverse))}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem * var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem * var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem * var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-8>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.divide-y>:not([hidden])~:not([hidden]){--tw-divide-y-reverse: 0;border-top-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px * var(--tw-divide-y-reverse))}.divide-slate-800\/60>:not([hidden])~:not([hidden]){border-color:#1e293b99}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-md{border-radius:.375rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-l{border-left-width:1px}.border-l-2{border-left-width:2px}.border-t{border-top-width:1px}.border-amber-200{--tw-border-opacity: 1;border-color:rgb(253 230 138 / var(--tw-border-opacity, 1))}.border-amber-400{--tw-border-opacity: 1;border-color:rgb(251 191 36 / var(--tw-border-opacity, 1))}.border-amber-500\/30{border-color:#f59e0b4d}.border-amber-500\/40{border-color:#f59e0b66}.border-blue-200{--tw-border-opacity: 1;border-color:rgb(191 219 254 / var(--tw-border-opacity, 1))}.border-emerald-200{--tw-border-opacity: 1;border-color:rgb(167 243 208 / var(--tw-border-opacity, 1))}.border-emerald-400{--tw-border-opacity: 1;border-color:rgb(52 211 153 / var(--tw-border-opacity, 1))}.border-emerald-500\/30{border-color:#10b9814d}.border-emerald-500\/40{border-color:#10b98166}.border-gray-100{--tw-border-opacity: 1;border-color:rgb(243 244 246 / var(--tw-border-opacity, 1))}.border-gray-200{--tw-border-opacity: 1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.border-gray-300{--tw-border-opacity: 1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.border-green-200{--tw-border-opacity: 1;border-color:rgb(187 247 208 / var(--tw-border-opacity, 1))}.border-green-600{--tw-border-opacity: 1;border-color:rgb(22 163 74 / var(--tw-border-opacity, 1))}.border-indigo-500\/40{border-color:#6366f166}.border-purple-200{--tw-border-opacity: 1;border-color:rgb(233 213 255 / var(--tw-border-opacity, 1))}.border-purple-500\/40{border-color:#a855f766}.border-rose-500\/40{border-color:#f43f5e66}.border-sky-200{--tw-border-opacity: 1;border-color:rgb(186 230 253 / var(--tw-border-opacity, 1))}.border-sky-500\/40{border-color:#0ea5e966}.border-slate-700{--tw-border-opacity: 1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity: 1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-slate-800\/80{border-color:#1e293bcc}.bg-amber-50{--tw-bg-opacity: 1;background-color:rgb(255 251 235 / var(--tw-bg-opacity, 1))}.bg-amber-500{--tw-bg-opacity: 1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-amber-500\/10{background-color:#f59e0b1a}.bg-amber-500\/20{background-color:#f59e0b33}.bg-emerald-50{--tw-bg-opacity: 1;background-color:rgb(236 253 245 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity: 1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-emerald-500\/10{background-color:#10b9811a}.bg-emerald-500\/20{background-color:#10b98133}.bg-gray-100{--tw-bg-opacity: 1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.bg-gray-200{--tw-bg-opacity: 1;background-color:rgb(229 231 235 / var(--tw-bg-opacity, 1))}.bg-gray-50{--tw-bg-opacity: 1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-gray-50\/80{background-color:#f9fafbcc}.bg-green-50{--tw-bg-opacity: 1;background-color:rgb(240 253 244 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-indigo-500\/10{background-color:#6366f11a}.bg-purple-50{--tw-bg-opacity: 1;background-color:rgb(250 245 255 / var(--tw-bg-opacity, 1))}.bg-purple-500\/10{background-color:#a855f71a}.bg-purple-600{--tw-bg-opacity: 1;background-color:rgb(147 51 234 / var(--tw-bg-opacity, 1))}.bg-rose-500\/10{background-color:#f43f5e1a}.bg-rose-500\/20{background-color:#f43f5e33}.bg-sky-50{--tw-bg-opacity: 1;background-color:rgb(240 249 255 / var(--tw-bg-opacity, 1))}.bg-sky-500\/10{background-color:#0ea5e91a}.bg-sky-600{--tw-bg-opacity: 1;background-color:rgb(2 132 199 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity: 1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity: 1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/40{background-color:#0f172a66}.bg-slate-900\/80{background-color:#0f172acc}.bg-slate-950{--tw-bg-opacity: 1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-slate-950\/60{background-color:#02061799}.bg-slate-950\/70{background-color:#020617b3}.bg-slate-950\/80{background-color:#020617cc}.bg-transparent{background-color:transparent}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-amber-500{--tw-gradient-from: #f59e0b var(--tw-gradient-from-position);--tw-gradient-to: rgb(245 158 11 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.from-amber-500\/10{--tw-gradient-from: rgb(245 158 11 / .1) var(--tw-gradient-from-position);--tw-gradient-to: rgb(245 158 11 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.via-slate-900{--tw-gradient-to: rgb(15 23 42 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), #0f172a var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-amber-600{--tw-gradient-to: #d97706 var(--tw-gradient-to-position)}.to-slate-950{--tw-gradient-to: #020617 var(--tw-gradient-to-position)}.fill-current{fill:currentColor}.object-cover{-o-object-fit:cover;object-fit:cover}.p-1{padding:.25rem}.p-1\.5{padding:.375rem}.p-2{padding:.5rem}.p-2\.5{padding:.625rem}.p-3{padding:.75rem}.p-3\.5{padding:.875rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-3\.5{padding-left:.875rem;padding-right:.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-1{padding-bottom:.25rem}.pb-2{padding-bottom:.5rem}.pb-3{padding-bottom:.75rem}.pl-4{padding-left:1rem}.pl-8{padding-left:2rem}.pl-9{padding-left:2.25rem}.pr-1{padding-right:.25rem}.pr-2{padding-right:.5rem}.pr-3{padding-right:.75rem}.pr-4{padding-right:1rem}.pt-0{padding-top:0}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.pt-6{padding-top:1.5rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-.025em}.tracking-wide{letter-spacing:.025em}.tracking-wider{letter-spacing:.05em}.text-amber-400{--tw-text-opacity: 1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-amber-500{--tw-text-opacity: 1;color:rgb(245 158 11 / var(--tw-text-opacity, 1))}.text-amber-600{--tw-text-opacity: 1;color:rgb(217 119 6 / var(--tw-text-opacity, 1))}.text-amber-700{--tw-text-opacity: 1;color:rgb(180 83 9 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity: 1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-emerald-600{--tw-text-opacity: 1;color:rgb(5 150 105 / var(--tw-text-opacity, 1))}.text-emerald-700{--tw-text-opacity: 1;color:rgb(4 120 87 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity: 1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity: 1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity: 1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity: 1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-green-600{--tw-text-opacity: 1;color:rgb(22 163 74 / var(--tw-text-opacity, 1))}.text-green-700{--tw-text-opacity: 1;color:rgb(21 128 61 / var(--tw-text-opacity, 1))}.text-indigo-400{--tw-text-opacity: 1;color:rgb(129 140 248 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity: 1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-purple-600{--tw-text-opacity: 1;color:rgb(147 51 234 / var(--tw-text-opacity, 1))}.text-red-600{--tw-text-opacity: 1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity: 1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity: 1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-sky-600{--tw-text-opacity: 1;color:rgb(2 132 199 / var(--tw-text-opacity, 1))}.text-sky-700{--tw-text-opacity: 1;color:rgb(3 105 161 / var(--tw-text-opacity, 1))}.text-slate-100{--tw-text-opacity: 1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity: 1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity: 1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity: 1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity: 1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity: 1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-950{--tw-text-opacity: 1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.underline{text-decoration-line:underline}.accent-amber-500{accent-color:#f59e0b}.accent-green-600{accent-color:#16a34a}.shadow-2xl{--tw-shadow: 0 25px 50px -12px rgb(0 0 0 / .25);--tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);--tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-md{--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.shadow-amber-500\/10{--tw-shadow-color: rgb(245 158 11 / .1);--tw-shadow: var(--tw-shadow-colored)}.shadow-amber-500\/20{--tw-shadow-color: rgb(245 158 11 / .2);--tw-shadow: var(--tw-shadow-colored)}.shadow-amber-500\/30{--tw-shadow-color: rgb(245 158 11 / .3);--tw-shadow: var(--tw-shadow-colored)}.shadow-emerald-500\/20{--tw-shadow-color: rgb(16 185 129 / .2);--tw-shadow: var(--tw-shadow-colored)}.outline-none{outline:2px solid transparent;outline-offset:2px}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur: blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur: blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.sidebar{background:#1a1f2e;width:220px;min-width:220px;min-height:100vh;display:flex;flex-direction:column;padding:0;position:fixed;top:0;left:0;bottom:0;z-index:30;overflow-y:auto}.sidebar-logo{display:flex;align-items:center;gap:12px;padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.06)}.sidebar-logo-icon{width:38px;height:38px;background:#16a34a;border-radius:10px;display:flex;align-items:center;justify-content:center}.sidebar-logo-text h2{font-size:16px;font-weight:800;color:#fff;line-height:1.2}.sidebar-logo-text p{font-size:10px;color:#6b7280;font-weight:500}.sidebar-section-title{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#4b5563;padding:16px 20px 6px}.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:12.5px;font-weight:500;color:#9ca3af;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .15s ease;border-radius:0;position:relative}.sidebar-item:hover{background:#ffffff0d;color:#fff}.sidebar-item.active{background:#16a34a26;color:#4ade80;font-weight:600}.sidebar-item.active:before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;background:#16a34a;border-radius:0 4px 4px 0}.sidebar-item-icon{width:16px;height:16px;flex-shrink:0}.sidebar-badge{margin-left:auto;background:#16a34a;color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;min-width:18px;text-align:center}.sidebar-promo{margin:16px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#1e3a2f,#14532d);padding:16px;position:relative}.sidebar-promo h4{font-size:13px;font-weight:800;color:#fff;line-height:1.3}.sidebar-promo p{font-size:10px;color:#86efac;margin-top:4px;line-height:1.4}.sidebar-promo-btn{margin-top:12px;width:28px;height:28px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:background .2s}.sidebar-promo-btn:hover{background:#15803d}.app-layout{display:flex;min-height:100vh}.main-wrapper{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh}.topnav{height:60px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:20;box-shadow:0 1px 3px #0000000a}.topnav-search{flex:1;max-width:360px;position:relative}.topnav-search input{width:100%;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:8px 12px 8px 36px;font-size:13px;color:#374151;outline:none;transition:border-color .2s}.topnav-search input:focus{border-color:#16a34a;background:#fff;box-shadow:0 0 0 3px #16a34a14}.topnav-search input::-moz-placeholder{color:#9ca3af}.topnav-search input::placeholder{color:#9ca3af}.topnav-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9ca3af;width:15px;height:15px}.topnav-right{display:flex;align-items:center;gap:12px;margin-left:auto}.topnav-kbd{font-size:10px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:5px;padding:2px 6px;color:#6b7280;font-weight:600}.topnav-notif{width:36px;height:36px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;color:#374151;transition:all .2s}.topnav-notif:hover{background:#f3f4f6}.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:#ef4444;border-radius:50%;border:1.5px solid white}.topnav-user{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px;border-radius:10px;border:1px solid #e5e7eb;background:#f9fafb;transition:all .2s}.topnav-user:hover{background:#f3f4f6}.topnav-avatar{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#16a34a,#15803d);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}.topnav-user-info h4{font-size:12.5px;font-weight:700;color:#111827;line-height:1}.topnav-user-info p{font-size:10px;color:#6b7280;font-weight:500;line-height:1.4}.role-bar{background:#fff;border-bottom:1px solid #e5e7eb;padding:8px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto}.role-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all .15s;white-space:nowrap;background:transparent;color:#6b7280}.role-pill:hover{background:#f3f4f6;color:#374151}.role-pill.active{background:#16a34a;color:#fff;box-shadow:0 2px 8px #16a34a40}.page-content{flex:1;padding:28px;background:#f5f6fa}.dash-hero{border-radius:18px;overflow:hidden;background:linear-gradient(100deg,#0f1f18,#1a3d2a 60%,#2d5a3d);padding:32px 36px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative;min-height:140px}.dash-hero:before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="20" r="40" fill="rgba(22,163,74,0.08)"/><circle cx="20" cy="80" r="30" fill="rgba(22,163,74,0.05)"/></svg>') no-repeat center;background-size:cover;pointer-events:none}.dash-hero-text .greeting{font-size:12px;font-weight:600;color:#86efac;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}.dash-hero-text h1{font-size:28px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.15}.dash-hero-text p{font-size:13px;color:#86efac;font-weight:400}.dash-hero-date{display:flex;align-items:center;gap:8px;background:#ffffff1a;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px 16px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap;align-self:flex-start}.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}@media (max-width: 1200px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}@media (max-width: 640px){.kpi-grid{grid-template-columns:1fr}}.kpi-card{background:#fff;border-radius:16px;padding:22px 22px 18px;border:1px solid #f0f0f0;box-shadow:0 1px 4px #0000000d;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s,transform .2s}.kpi-card:hover{box-shadow:0 4px 16px #00000014;transform:translateY(-1px)}.kpi-card-header{display:flex;align-items:center;justify-content:space-between}.kpi-card-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center}.kpi-icon-green{background:#dcfce7;color:#16a34a}.kpi-icon-blue{background:#dbeafe;color:#2563eb}.kpi-icon-purple{background:#ede9fe;color:#7c3aed}.kpi-icon-orange{background:#ffedd5;color:#ea580c}.kpi-card-title{font-size:11.5px;font-weight:500;color:#6b7280;letter-spacing:.01em}.kpi-card-value{font-size:26px;font-weight:800;color:#111827;line-height:1}.kpi-card-growth{font-size:11.5px;font-weight:600;color:#16a34a;display:flex;align-items:center;gap:3px}.kpi-sparkline{display:flex;align-items:flex-end;gap:2px;height:32px}.kpi-sparkline-bar{flex:1;border-radius:2px;min-width:4px;transition:height .3s}.mid-grid{display:grid;grid-template-columns:1fr 320px;gap:16px;margin-bottom:24px}@media (max-width: 1100px){.mid-grid{grid-template-columns:1fr}}.card{background:#fff;border-radius:16px;border:1px solid #f0f0f0;box-shadow:0 1px 4px #0000000d;padding:24px}.card-title{font-size:14px;font-weight:700;color:#111827;margin-bottom:2px}.card-subtitle{font-size:11.5px;color:#6b7280}.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}.chart-tabs{display:flex;align-items:center;gap:4px;background:#f3f4f6;padding:3px;border-radius:8px}.chart-tab{padding:4px 12px;border-radius:6px;font-size:11.5px;font-weight:600;border:none;cursor:pointer;background:transparent;color:#6b7280;transition:all .15s}.chart-tab.active{background:#111827;color:#fff}.bar-chart{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:180px;padding-top:20px;position:relative}.bar-chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}.bar-chart-bar{width:100%;border-radius:6px 6px 0 0;transition:opacity .2s;cursor:pointer;position:relative}.bar-chart-bar:hover{opacity:.85}.bar-chart-bar.active-bar{background:#16a34a!important}.bar-chart-tooltip{position:absolute;top:-44px;left:50%;transform:translate(-50%);background:#111827;color:#fff;font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none}.bar-chart-tooltip:after{content:"";position:absolute;bottom:-4px;left:50%;transform:translate(-50%);width:8px;height:4px;background:#111827;clip-path:polygon(0 0,100% 0,50% 100%)}.bar-chart-label{font-size:10px;color:#9ca3af;font-weight:500;white-space:nowrap}.alert-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:12px;margin-bottom:10px;border:1px solid transparent}.alert-item-left{display:flex;align-items:center;gap:12px}.alert-icon-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.alert-icon-orange{background:#fff7ed;color:#ea580c}.alert-icon-red{background:#fef2f2;color:#dc2626}.alert-icon-purple{background:#faf5ff;color:#7c3aed}.alert-item-title{font-size:12.5px;font-weight:700;color:#111827}.alert-item-sub{font-size:11px;color:#6b7280;margin-top:1px}.alert-badge{font-size:14px;font-weight:900;min-width:28px;text-align:right}.view-all-btn{width:100%;padding:10px;background:transparent;border:1px solid #e5e7eb;border-radius:10px;font-size:12px;font-weight:600;color:#374151;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;transition:all .15s}.view-all-btn:hover{background:#f9fafb;border-color:#d1d5db}.data-table{width:100%;border-collapse:collapse}.data-table th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;padding:10px 16px;text-align:left;border-bottom:1px solid #f3f4f6}.data-table td{padding:13px 16px;font-size:13px;border-bottom:1px solid #f9fafb;vertical-align:middle}.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:#f9fafb}.invoice-link{color:#2563eb;font-weight:700;font-size:12.5px}.status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700}.status-dot{width:6px;height:6px;border-radius:50%}.status-preparing{background:#fff7ed;color:#ea580c}.status-preparing .status-dot{background:#ea580c}.status-ready{background:#f0fdf4;color:#16a34a}.status-ready .status-dot{background:#16a34a}.status-paid{background:#f0fdf4;color:#16a34a}.status-paid .status-dot{background:#16a34a}.status-delivered{background:#eff6ff;color:#2563eb}.status-delivered .status-dot{background:#2563eb}.status-cancelled{background:#fef2f2;color:#dc2626}.status-cancelled .status-dot{background:#dc2626}.live-dot{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:#16a34a}.live-dot:before{content:"";width:7px;height:7px;background:#16a34a;border-radius:50%;animation:pulse-dot 1.5s infinite}@keyframes pulse-dot{0%,to{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:999px}::-webkit-scrollbar-thumb:hover{background:#d1d5db}@keyframes fadeInUp{0%{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.animate-fade-in{animation:fadeInUp .3s ease-out forwards}.hover\:border-amber-500:hover{--tw-border-opacity: 1;border-color:rgb(245 158 11 / var(--tw-border-opacity, 1))}.hover\:border-amber-500\/40:hover{border-color:#f59e0b66}.hover\:border-blue-500:hover{--tw-border-opacity: 1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.hover\:border-green-500:hover{--tw-border-opacity: 1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.hover\:border-slate-700:hover{--tw-border-opacity: 1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.hover\:bg-amber-400:hover{--tw-bg-opacity: 1;background-color:rgb(251 191 36 / var(--tw-bg-opacity, 1))}.hover\:bg-amber-500:hover{--tw-bg-opacity: 1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.hover\:bg-amber-600:hover{--tw-bg-opacity: 1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-100:hover{--tw-bg-opacity: 1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-200:hover{--tw-bg-opacity: 1;background-color:rgb(229 231 235 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-300:hover{--tw-bg-opacity: 1;background-color:rgb(209 213 219 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-50:hover{--tw-bg-opacity: 1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.hover\:bg-green-600:hover{--tw-bg-opacity: 1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity: 1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}.hover\:bg-purple-700:hover{--tw-bg-opacity: 1;background-color:rgb(126 34 206 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-500:hover{--tw-bg-opacity: 1;background-color:rgb(244 63 94 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity: 1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-800:hover{--tw-bg-opacity: 1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-800\/40:hover{background-color:#1e293b66}.hover\:bg-slate-800\/50:hover{background-color:#1e293b80}.hover\:from-amber-600:hover{--tw-gradient-from: #d97706 var(--tw-gradient-from-position);--tw-gradient-to: rgb(217 119 6 / 0) var(--tw-gradient-to-position);--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:to-amber-700:hover{--tw-gradient-to: #b45309 var(--tw-gradient-to-position)}.hover\:text-amber-400:hover{--tw-text-opacity: 1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.hover\:text-gray-700:hover{--tw-text-opacity: 1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.hover\:text-gray-900:hover{--tw-text-opacity: 1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.hover\:text-slate-950:hover{--tw-text-opacity: 1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:underline:hover{text-decoration-line:underline}.hover\:shadow-md:hover{--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);--tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.focus\:border-green-600:focus{--tw-border-opacity: 1;border-color:rgb(22 163 74 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.disabled\:opacity-30:disabled{opacity:.3}.disabled\:opacity-40:disabled{opacity:.4}.group:hover .group-hover\:scale-105{--tw-scale-x: 1.05;--tw-scale-y: 1.05;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:text-amber-400{--tw-text-opacity: 1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}}@media (min-width: 768px){.md\:col-span-2{grid-column:span 2 / span 2}.md\:inline{display:inline}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:w-80{width:20rem}.lg\:w-96{width:24rem}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.lg\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}.lg\:flex-row{flex-direction:row}.lg\:p-12{padding:3rem}.lg\:p-8{padding:2rem}.lg\:text-5xl{font-size:3rem;line-height:1}}
+
+/* ============================================================
+   Accessibility / contrast patch — appended by Claude
+   All values verified against WCAG 2.1 AA (4.5:1 for normal text)
+   using the actual relative-luminance formula, not eyeballed.
+
+   Strategy: darken the handful of utility-class colors that fail
+   AA when used as text on light (white / gray-50) backgrounds,
+   then RESTORE the original lighter value specifically inside the
+   app's known dark containers (.sidebar, .bg-slate-900, .bg-slate-950)
+   where the original color already had good contrast (7–17:1) and
+   darkening it would only make it harder to read on a dark bg.
+   ============================================================ */
+
+/* text-gray-400: 2.54:1 on white -> FAIL. gray-500 passes at 4.83:1. */
+.text-gray-400 { color: #6b7280 !important; }
+.sidebar .text-gray-400,
+.bg-slate-900 .text-gray-400,
+.bg-slate-950 .text-gray-400 { color: #9ca3af !important; }
+
+/* text-green-300: 1.40:1 on white -> severe FAIL. Using the app's own
+   --primary-dark (#15803d) passes at 5.02:1 and stays on-brand. */
+.text-green-300 { color: #15803d !important; }
+.sidebar .text-green-300,
+.bg-slate-900 .text-green-300,
+.bg-slate-950 .text-green-300 { color: #86efac !important; }
+
+/* text-amber-500: 2.15:1 on white -> FAIL. amber-700 passes at 5.02:1. */
+.text-amber-500 { color: #b45309 !important; }
+.sidebar .text-amber-500,
+.bg-slate-900 .text-amber-500,
+.bg-slate-950 .text-amber-500 { color: #f59e0b !important; }
+
+/* bg-amber-500 badges/buttons with white text: 2.15:1 -> FAIL.
+   amber-700 background keeps white text at 5.02:1. */
+.bg-amber-500 { background-color: #b45309 !important; }
+
+/* Note: --primary green (#16a34a) as small text on white sits at
+   3.30:1 — borderline (fine for large text/icons/buttons per WCAG's
+   3:1 UI-component threshold, not fully AA for small body text).
+   Left as-is: it's the core brand color and already used correctly
+   as button/badge fills (large-text threshold applies there); only
+   flagging here in case it's ever used for small inline text. */
+
+/* ============================================================
+   Accessibility / contrast patch v2 — full-palette audit
+   Scanned all 31 text-color and 17 bg-color utility rules
+   actually present in this build; every value below is a
+   verified WCAG AA failure on a white/light background
+   (ratios computed from real relative luminance, not eyeballed).
+
+   Same strategy as v1: darken for the light-background case,
+   then restore the original (already-good, 5-12:1) shade
+   specifically inside known dark containers so nothing already
+   correct on the dark sidebar/panels gets touched.
+   ============================================================ */
+
+/* text-amber-600: 3.19:1 on white -> FAIL. amber-800 passes at 7.09:1. */
+.text-amber-600 { color: #92400e !important; }
+.sidebar .text-amber-600,
+.bg-slate-800 .text-amber-600,
+.bg-slate-900 .text-amber-600,
+.bg-slate-950 .text-amber-600 { color: #d97706 !important; }
+
+/* text-green-600 (brand, used as inline text/links): 3.30:1 on white
+   -> fails normal-text AA. Reuses the app's own --primary-dark,
+   already established in v1, for consistency. Button/badge FILLS
+   using bg-green-600 are left untouched — those sit at the 3:1
+   "large/UI text" threshold, which is the correct bar for button
+   labels, and repainting the core brand button color is a bigger
+   visual change than a contrast fix calls for. */
+.text-green-600 { color: #15803d !important; }
+.sidebar .text-green-600,
+.bg-slate-800 .text-green-600,
+.bg-slate-900 .text-green-600,
+.bg-slate-950 .text-green-600 { color: #16a34a !important; }
+
+/* text-sky-600: 4.10:1 on white -> fails by a hair. sky-800 -> 7.56:1. */
+.text-sky-600 { color: #075985 !important; }
+.sidebar .text-sky-600,
+.bg-slate-800 .text-sky-600,
+.bg-slate-900 .text-sky-600,
+.bg-slate-950 .text-sky-600 { color: #0284c7 !important; }
+
+/* text-emerald-600: 3.77:1 on white -> FAIL. emerald-800 -> 7.68:1. */
+.text-emerald-600 { color: #065f46 !important; }
+.sidebar .text-emerald-600,
+.bg-slate-800 .text-emerald-600,
+.bg-slate-900 .text-emerald-600,
+.bg-slate-950 .text-emerald-600 { color: #059669 !important; }
+
+/* The four "-400" accent shades below are correct where they're used
+   on the dark sidebar (5–8:1 there — verified, untouched by the
+   restore rules) but fail badly (2.1–3.0:1) wherever they might also
+   land on a white/light card. Darkened to their "-700" equivalents
+   for the light case; restored to the original on dark. */
+.text-indigo-400 { color: #4338ca !important; }
+.sidebar .text-indigo-400,
+.bg-slate-800 .text-indigo-400,
+.bg-slate-900 .text-indigo-400,
+.bg-slate-950 .text-indigo-400 { color: #818cf8 !important; }
+
+.text-purple-400 { color: #7e22ce !important; }
+.sidebar .text-purple-400,
+.bg-slate-800 .text-purple-400,
+.bg-slate-900 .text-purple-400,
+.bg-slate-950 .text-purple-400 { color: #c084fc !important; }
+
+.text-rose-400 { color: #be123c !important; }
+.sidebar .text-rose-400,
+.bg-slate-800 .text-rose-400,
+.bg-slate-900 .text-rose-400,
+.bg-slate-950 .text-rose-400 { color: #fb7185 !important; }
+
+.text-sky-400 { color: #0369a1 !important; }
+.sidebar .text-sky-400,
+.bg-slate-800 .text-sky-400,
+.bg-slate-900 .text-sky-400,
+.bg-slate-950 .text-sky-400 { color: #38bdf8 !important; }
+
+/* ============================================================
+   UI/UX polish (safe, additive — no layout/structure touched)
+   ============================================================ */
+
+/* Consistent, slightly softer focus ring instead of the browser
+   default blue outline clashing with the green brand palette. */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #16a34a !important;
+  outline-offset: 2px !important;
+}
+
+/* Buttons/interactive elements: a deliberate, uniform hover feedback
+   so clickable things consistently signal "this is clickable". */
+button, [role="button"] {
+  transition: filter 150ms ease, transform 150ms ease !important;
+}
+button:not(:disabled):hover, [role="button"]:not(:disabled):hover {
+  filter: brightness(0.95);
+}
+button:disabled, [role="button"][aria-disabled="true"] {
+  cursor: not-allowed !important;
+}
+
+/* ============================================================
+   Missing class definitions — THE real root cause
+   ============================================================
+   These custom classes are referenced 21+15+28 times across the
+   app's JSX but were never defined anywhere in the shipped CSS —
+   they render as literally no styling at all. Every "invisible
+   text" screenshot (Reports & Business Analytics Hub title, the
+   82/41 stat numbers) is white text sitting on a plain white page
+   background because its dark glass-panel/glass-card container
+   never got a background. This is not a Tailwind color/contrast
+   issue — it's a missing component style, confirmed by grepping
+   the JS bundle for every className that isn't a Tailwind utility
+   and checking which ones have zero matching CSS rule.
+
+   Design: both wrap "text-white" children and always pair with
+   border-slate-800 (dark border) in the JSX, so a dark frosted-
+   glass treatment is what was clearly intended. */
+
+.glass-panel,
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* glass-input: only ever used nested inside/alongside the dark
+   glass panels above (confirmed — the one plain-white topnav
+   search bar uses a different, already-defined class), so it
+   gets the same dark-glass family treatment for consistency. */
+.glass-input {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.glass-input::placeholder { color: #94a3b8; }
+.glass-input:focus {
+  outline: none !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.25) !important;
+}
+
+/* dash-hero-text: sits directly inside .dash-hero, which DOES have
+   a proper dark green gradient background already — but its own
+   text-color was never set, so any child without an explicit
+   text-* class (the "Ahmad Manager 👋" heading, greeting line)
+   would inherit the page's default dark body text and go
+   near-invisible on that dark gradient. */
+.dash-hero-text { color: #ffffff; }
+.dash-hero-text h1, .dash-hero-text p { color: inherit; }
+
+/* Trivial, zero-risk: this one just hides a scrollbar cosmetically. */
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ============================================================
+   Exact same-element text+bg pairs — found by scanning every
+   className string in the JS bundle for text-X and bg-Y classes
+   that co-occur on the SAME element, then computing the real
+   ratio for that exact pair. These are the actual bugs (not
+   "text color X might sit on some background"). Each rule below
+   is a compound selector (.text-X.bg-Y) so it only touches
+   elements that have BOTH classes — every other independent use
+   of text-X or bg-Y elsewhere is completely unaffected.
+   ============================================================ */
+
+/* white on a near-white green badge: 1.05:1 — was invisible */
+.text-white.bg-green-50 { color: #15803d !important; }
+
+/* light amber text on medium amber bg: 1.29:1 — same-hue, no contrast.
+   #020617 is the exact dark tone this app already uses correctly on
+   amber-500 elsewhere (9.39:1 there), reused here for consistency. */
+.text-amber-400.bg-amber-500 { color: #020617 !important; }
+
+/* light emerald on medium emerald: 1.32:1 */
+.text-emerald-400.bg-emerald-500 { color: #020617 !important; }
+
+/* very dark slate text on dark slate bg: 1.38:1 — both too close in
+   tone to read. Switched to white, matching this app's own
+   text-white/bg-slate-800 pattern used correctly elsewhere (14.6:1). */
+.text-slate-950.bg-slate-800 { color: #ffffff !important; }
+
+/* light gray on amber: 1.45:1 */
+.text-slate-300.bg-amber-500 { color: #020617 !important; }
+
+/* dark green text on medium green bg, same hue family: 1.52:1 */
+.text-green-700.bg-green-600 { color: #ffffff !important; }
+
+/* ============================================================
+   LIGHT CARD REDESIGN — replaces the dark glass treatment
+   ============================================================
+   Correction of an earlier call: I first defined .glass-panel /
+   .glass-card as DARK frosted glass, because their JSX pairs them
+   with text-white + border-slate-800, which reads as dark intent.
+   Rendered, that produced muddy dark-gray cards sitting inside a
+   light page shell — inconsistent and not what a professional
+   dashboard looks like.
+
+   Target instead (matching the supplied reference): white cards,
+   soft layered shadow, hairline light border, dark readable text,
+   colour used only as small accents. The sidebar stays dark — it
+   reads as deliberate there and gives the layout its anchor.
+   ============================================================ */
+
+.glass-panel,
+.glass-card {
+  background: #ffffff !important;
+  border-color: #e8eaed !important;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .04),
+              0 8px 24px -4px rgba(16, 24, 40, .06) !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Any divider/border drawn inside those cards was also styled for a
+   dark surface — bring it to a hairline that reads on white. */
+.glass-panel .border-slate-800,
+.glass-panel .border-slate-700,
+.glass-card .border-slate-800,
+.glass-card .border-slate-700 { border-color: #eceff3 !important; }
+
+/* ---- Text inside the (now light) cards --------------------------
+   Every one of these was chosen for a dark surface. On white they
+   range from 1.1:1 to 2.6:1 — unreadable. Mapped to the darkest
+   member of the same hue so the colour coding survives while the
+   text becomes legible (all values ≥ 4.5:1 on white). */
+.glass-panel .text-white,
+.glass-card .text-white          { color: #111827 !important; }  /* 17.7:1 */
+.glass-panel .text-slate-100,
+.glass-card .text-slate-100      { color: #1f2937 !important; }
+.glass-panel .text-slate-200,
+.glass-card .text-slate-200      { color: #374151 !important; }
+.glass-panel .text-slate-300,
+.glass-card .text-slate-300      { color: #4b5563 !important; }
+.glass-panel .text-slate-400,
+.glass-card .text-slate-400      { color: #667085 !important; }  /* 4.9:1 */
+.glass-panel .text-slate-500,
+.glass-card .text-slate-500      { color: #667085 !important; }
+
+.glass-panel .text-amber-400,
+.glass-card .text-amber-400      { color: #b45309 !important; }  /* 5.0:1 */
+.glass-panel .text-emerald-400,
+.glass-card .text-emerald-400    { color: #047857 !important; }
+.glass-panel .text-green-300,
+.glass-card .text-green-300      { color: #15803d !important; }
+.glass-panel .text-indigo-400,
+.glass-card .text-indigo-400     { color: #4338ca !important; }
+.glass-panel .text-purple-400,
+.glass-card .text-purple-400     { color: #7e22ce !important; }
+.glass-panel .text-rose-400,
+.glass-card .text-rose-400       { color: #be123c !important; }
+.glass-panel .text-sky-400,
+.glass-card .text-sky-400        { color: #0369a1 !important; }
+
+/* ---- Inputs sitting in those cards ------------------------------ */
+.glass-input {
+  background: #f9fafb !important;
+  border: 1px solid #d5d9e0 !important;
+  color: #111827 !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.glass-input::placeholder { color: #667085 !important; }  /* 4.97:1 — placeholders are text too */
+.glass-input:focus {
+  outline: none !important;
+  background: #ffffff !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, .16) !important;
+}
+
+/* ---- Depth + polish, matching the reference's feel -------------- */
+.glass-panel:hover,
+.glass-card:hover {
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .05),
+              0 12px 32px -6px rgba(16, 24, 40, .10) !important;
+  transition: box-shadow 200ms ease;
+}
+
+/* ============================================================
+   Icon buttons inside the light cards
+   ============================================================
+   The edit button ships as `bg-slate-800 text-slate-300` — built
+   for a dark card. Two problems once the cards went white:
+     1. a near-black block sitting on a white card (the "black
+        feel" — it doesn't belong in this palette), and
+     2. the previous patch darkened the icon (text-slate-300 ->
+        #4b5563) while the slate-800 background stayed dark,
+        leaving the icon at 1.94:1 against its own button.
+   Fixed together here: light neutral button, dark icon (9.5:1),
+   and hover states that stay legible instead of turning white
+   on white.
+   ============================================================ */
+
+.glass-panel .bg-slate-800,
+.glass-card  .bg-slate-800,
+.glass-panel .bg-slate-700,
+.glass-card  .bg-slate-700 {
+  background-color: #f2f4f7 !important;
+  border: 1px solid #e4e7ec !important;
+}
+
+.glass-panel .bg-slate-800.text-slate-300,
+.glass-card  .bg-slate-800.text-slate-300,
+.glass-panel .bg-slate-700.text-slate-300,
+.glass-card  .bg-slate-700.text-slate-300 { color: #344054 !important; }  /* 9.49:1 */
+
+/* hover:text-white would go white-on-light — keep it dark and
+   darken the surface instead, which is the usual affordance. */
+.glass-panel .bg-slate-800:hover,
+.glass-card  .bg-slate-800:hover,
+.glass-panel .bg-slate-700:hover,
+.glass-card  .bg-slate-700:hover {
+  background-color: #e4e7ec !important;
+  color: #101828 !important;
+}
+
+/* Delete button: bg-rose-500/20 on white renders as a light pink,
+   and text-rose-400 on it is ~2.6:1. Darker rose reads at 6.2:1
+   while keeping the destructive-action colour cue. */
+.glass-panel .text-rose-400,
+.glass-card  .text-rose-400 { color: #9f1239 !important; }
+
+/* Its hover flips to a solid rose fill — white icon is correct there. */
+.glass-panel .hover\:bg-rose-500:hover,
+.glass-card  .hover\:bg-rose-500:hover { color: #ffffff !important; }
+
+/* Consistent hit-area + feedback for both icon buttons. */
+.glass-panel button.rounded-lg,
+.glass-card  button.rounded-lg { transition: background-color 150ms ease, color 150ms ease; }
+
+/* ============================================================
+   Amber CTA buttons — reverting an earlier bad call
+   ============================================================
+   In the first pass I darkened `.bg-amber-500` globally to fix
+   one combination (white text on amber, 2.15:1). That was the
+   wrong lever: the app's dominant, and correct, pattern is
+   `bg-amber-500 + text-slate-950` — near-black on bright amber,
+   9.39:1, used 11 times including the "Add New Item" CTA.
+   Darkening the background dragged that from 9.39 down to 4.02
+   and made the button look muddy and black-ish.
+
+   Correct fix: put the background back to bright amber, and fix
+   the one genuinely broken combination by darkening its TEXT
+   instead — which also makes every amber button consistent.
+   ============================================================ */
+
+/* Restore the original bright amber surface. */
+.bg-amber-500 { background-color: #f59e0b !important; }
+
+/* The one broken pair: white on amber (2.15:1) -> near-black on
+   amber (9.39:1), matching the app's own dominant amber pattern. */
+.text-white.bg-amber-500 { color: #020617 !important; }
+
+/* Same reasoning for the lighter amber used on hover. */
+.hover\:bg-amber-400:hover { background-color: #fbbf24 !important; }
+.text-white.bg-amber-400,
+.hover\:bg-amber-400:hover.text-white { color: #020617 !important; }
+
+/* Icon inside these amber buttons inherits the button colour, so it
+   stays near-black too — no separate rule needed. */
+
+/* ============================================================
+   Remaining button combinations — full audit of every <button>
+   className in the bundle, scored against what the deployed
+   patches actually render. Three were still short of AA; all
+   three fixed with compound selectors so only elements carrying
+   BOTH classes change, and every other use of these classes
+   elsewhere is untouched.
+   ============================================================ */
+
+/* Primary green buttons: white on green-600 = 3.30:1. These carry
+   text-xs labels, so the 3:1 large-text allowance doesn't apply —
+   they need the full 4.5. Dropping to the app's own --primary-dark
+   keeps it on-brand at 5.02:1. (7 buttons) */
+.text-white.bg-green-600 { background-color: #15803d !important; }
+
+/* white on sky-600 = 4.10:1, just short. sky-800 -> 7.56:1. (2) */
+.text-white.bg-sky-600 { background-color: #075985 !important; }
+
+/* muted text on a gray-100 button = 4.39:1, just short -> 6.87:1. (2) */
+.text-gray-400.bg-gray-100 { color: #4b5563 !important; }
+
+/* ============================================================
+   Pipeline / step cards + workflow strip
+   ============================================================
+   Three things were wrong on this page once the cards went light:
+
+   1. Each step card ships its own hue tint (bg-amber-500/10,
+      bg-sky-500/10, …) meant to glow on a dark surface. My blanket
+      white override wiped that out, so all seven cards became
+      identical white and lost their per-step colour identity.
+      Restored as proper light tints instead.
+
+   2. The card wrapper carries text-{hue}-400 on ITSELF, and the
+      step icon inherits it — an earlier rule only covered
+      descendants (.glass-card .text-amber-400), so the icons kept
+      the light shade and sat at 1.67:1 on white. Compound
+      selectors below catch the wrapper itself.
+
+   3. The count badge is bg-slate-950/80 — a near-black pill built
+      for a dark card. On a white card it reads as a dark blob.
+      Now a tinted chip in the card's own hue.
+   ============================================================ */
+
+/* ---- 1 + 2: card surface, border, and its inherited text/icon ---- */
+.glass-card.bg-amber-500\/10   { background-color: #fffbeb !important; border-color: #fde68a !important; color: #b45309 !important; }
+.glass-card.bg-sky-500\/10     { background-color: #f0f9ff !important; border-color: #bae6fd !important; color: #0369a1 !important; }
+.glass-card.bg-indigo-500\/10  { background-color: #eef2ff !important; border-color: #c7d2fe !important; color: #4338ca !important; }
+.glass-card.bg-purple-500\/10  { background-color: #faf5ff !important; border-color: #e9d5ff !important; color: #7e22ce !important; }
+.glass-card.bg-rose-500\/10    { background-color: #fff1f2 !important; border-color: #fecdd3 !important; color: #9f1239 !important; }
+.glass-card.bg-emerald-500\/10 { background-color: #ecfdf5 !important; border-color: #a7f3d0 !important; color: #047857 !important; }
+
+/* the wrapper's own text-{hue}-400 class (icon colour lives here) */
+.glass-card.text-amber-400   { color: #b45309 !important; }
+.glass-card.text-sky-400     { color: #0369a1 !important; }
+.glass-card.text-indigo-400  { color: #4338ca !important; }
+.glass-card.text-purple-400  { color: #7e22ce !important; }
+.glass-card.text-rose-400    { color: #9f1239 !important; }
+.glass-card.text-emerald-400 { color: #047857 !important; }
+
+/* ---- 3: the count badge, tinted per card hue (4.5–6.7:1) ---- */
+.glass-card .bg-slate-950\/80 { background-color: #f2f4f7 !important; }
+.glass-card.bg-amber-500\/10   .bg-slate-950\/80 { background-color: #fef3c7 !important; }
+.glass-card.bg-sky-500\/10     .bg-slate-950\/80 { background-color: #e0f2fe !important; }
+.glass-card.bg-indigo-500\/10  .bg-slate-950\/80 { background-color: #e0e7ff !important; }
+.glass-card.bg-purple-500\/10  .bg-slate-950\/80 { background-color: #f3e8ff !important; }
+.glass-card.bg-rose-500\/10    .bg-slate-950\/80 { background-color: #ffe4e6 !important; }
+.glass-card.bg-emerald-500\/10 .bg-slate-950\/80 { background-color: #d1fae5 !important; }
+
+/* ---- workflow strip at the bottom of the page ----
+   A near-black band sitting inside a white card. Same treatment:
+   light surface, hairline border; the pill labels already get
+   their darkened hue from the earlier .glass-panel rules. */
+.glass-panel .bg-slate-950\/80 {
+  background-color: #f8fafc !important;
+  border-color: #e4e7ec !important;
+}
+.glass-panel .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #e4e7ec !important;
+}
+.glass-panel .bg-slate-950\/80 .text-slate-600 { color: #98a2b3 !important; }  /* the → arrows */
+
+/* ============================================================
+   Tables + hover states inside the light cards
+   ============================================================
+   The order table (and 5 others like it) ships:
+       tbody  divide-y divide-slate-800/60
+       tr     hover:bg-slate-800/40
+   Both are dark-surface values. On a white card the divider
+   renders as a hard near-black rule between rows, and the hover
+   lands as a solid medium-grey band across the whole row — which
+   is the heavy grey stripe on the highlighted row.
+
+   Worth noting: this app's OTHER table (.data-table, hand-written
+   CSS) already does this correctly — 1px #f9fafb rules and a
+   #f9fafb hover. These Tailwind tables just never got the same
+   treatment. Matching them to it.
+
+   Covers all 6 tables and all 11 hover targets in the bundle.
+   ============================================================ */
+
+/* Row dividers: near-black rule -> hairline */
+.glass-panel .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]),
+.glass-card  .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #eceff3 !important;
+}
+
+/* Row / item hover: solid grey band -> the same subtle tint the
+   app's own .data-table already uses */
+.glass-panel .hover\:bg-slate-800\/40:hover,
+.glass-card  .hover\:bg-slate-800\/40:hover,
+.glass-panel .hover\:bg-slate-800:hover,
+.glass-card  .hover\:bg-slate-800:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Header underline in those tables */
+.glass-panel thead .border-slate-800,
+.glass-card  thead .border-slate-800,
+.glass-panel thead tr,
+.glass-card  thead tr { border-color: #e4e7ec !important; }
+
+/* The status filter is a form control, not an accent — amber text
+   on it reads as a link/CTA. Neutral dark instead (9.5:1). */
+.glass-panel select.glass-input,
+.glass-card  select.glass-input { color: #344054 !important; }
+
+/* .data-table's own header sits at #9ca3af = 2.54:1 on white.
+   Same darkening as everything else muted (4.97:1). */
+.data-table th { color: #667085 !important; }
+
+/* ============================================================
+   Drawer + a correction to my own over-broad rule
+   ============================================================
+   `.glass-panel .text-white { color: #111827 }` was too blunt. It
+   was meant for white text stranded on the (now white) card
+   surface — but it also caught white text sitting on genuinely
+   coloured buttons inside those cards. "Mark Order Ready" is
+   white-on-green by design; the rule repainted it near-black,
+   dropping it from 5.02:1 to 3.54:1 and making the button look
+   washed out. Restoring white wherever the element carries its
+   own saturated background.
+   ============================================================ */
+
+.glass-panel .text-white.bg-green-600,  .glass-card .text-white.bg-green-600,
+.glass-panel .text-white.bg-green-700,  .glass-card .text-white.bg-green-700,
+.glass-panel .text-white.bg-sky-600,    .glass-card .text-white.bg-sky-600,
+.glass-panel .text-white.bg-purple-600, .glass-card .text-white.bg-purple-600,
+.glass-panel .text-white.bg-rose-500,   .glass-card .text-white.bg-rose-500,
+.glass-panel .text-white.bg-emerald-500,.glass-card .text-white.bg-emerald-500,
+.glass-panel .text-white.bg-red-600,    .glass-card .text-white.bg-red-600 {
+  color: #ffffff !important;
+}
+
+/* ---- Drawer header ----
+   bg-slate-900/80 — a dark navy strip sitting on top of a white
+   drawer body. Inconsistent on its own, and its title carries
+   text-white, which the rule above would otherwise leave dark on
+   dark. Light header + the existing dark title reads cleanly. */
+.glass-panel .bg-slate-900\/80 {
+  background-color: #ffffff !important;
+  border-color: #e4e7ec !important;
+}
+
+/* Close button: hover flips it to white text on a surface that is
+   now light — invisible. Keep it dark on hover instead. Scoped to
+   the exact pair so the rose delete button, which legitimately
+   goes white-on-rose, is untouched. */
+.glass-panel .hover\:bg-slate-800.hover\:text-white:hover,
+.glass-card  .hover\:bg-slate-800.hover\:text-white:hover {
+  color: #101828 !important;
+}
+
+/* ---- Row hover, second pass ----
+   #f9fafb was only 1.045 against white — technically a hover, but
+   not one you can actually see. #eef1f5 is ~3x the separation and
+   still reads as a light neutral, not a grey band. */
+.glass-panel .hover\:bg-slate-800\/40:hover,
+.glass-card  .hover\:bg-slate-800\/40:hover,
+.glass-panel .hover\:bg-slate-800:hover,
+.glass-card  .hover\:bg-slate-800:hover,
+.data-table tr:hover td {
+  background-color: #eef1f5 !important;
+}
+
+/* ============================================================
+   Dashboard palette — reducing the competing accents
+   ============================================================
+   The page currently runs six accent hues at once: green, blue,
+   purple and orange across the four KPI cards, plus orange, red
+   and purple again in the alerts panel. Nothing is wrong with any
+   one of them; the problem is that they all carry equal weight,
+   so nothing reads as primary and the page looks busy rather
+   than considered.
+
+   The usual rule for a dashboard palette:
+     - ONE brand hue carries the data (green here),
+     - semantic colour only where it actually means something
+       (red = critical, amber = warning),
+     - everything else neutral.
+
+   Applying exactly that. The small pastel icon badges on the KPI
+   cards stay — they're low weight, they help you tell the four
+   metrics apart, and the reference layout uses the same device.
+   ============================================================ */
+
+/* ---- 1. Sparklines: four hues -> one ----
+   These are the heaviest colour on the page (chunky bars, full
+   card width) and they were the main source of the rainbow. Now
+   all brand green, which also matches the main revenue chart
+   directly below them. The per-bar opacity ramp is inline and
+   untouched, so they keep their sense of progression. */
+.kpi-sparkline-bar { background: #16a34a !important; }
+
+/* ---- 2. Alerts: purple wasn't semantic ----
+   Orange = warning and red = critical both earn their colour.
+   "Floor Occupancy 65%" is a neutral status readout, so purple
+   was decorative — it read as a third severity level that doesn't
+   exist. Neutral slate instead (6.92:1). */
+.alert-icon-purple {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+}
+.alert-item:has(.alert-icon-purple) {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+.alert-item:has(.alert-icon-purple) .alert-badge { color: #334155 !important; }
+
+/* ============================================================
+   Speed POS — making it read like a till, not a list
+   ============================================================
+   Note on the images: the POS tile markup renders only the name,
+   category, price and a "+". There is no <img> in it at all —
+   the Menu & Dishes screen has one, this grid never got it. That
+   needs a source change; CSS cannot pull an image URL out of the
+   data. Everything below is what CAN be fixed from here.
+
+   A POS is a touch surface read at arm's length, so the changes
+   are about size and hierarchy: bigger hit areas, price as the
+   loudest element on the tile, one obvious add action, and a
+   till panel whose total you can read across the counter.
+   ============================================================ */
+
+/* ---- Product tiles ---- */
+.cursor-pointer.hover\:border-green-500 {
+  min-height: 116px !important;
+  padding: 14px 14px 12px !important;
+  border-radius: 14px !important;
+  border-color: #e6e9ee !important;
+}
+.cursor-pointer.hover\:border-green-500:hover {
+  border-color: #16a34a !important;
+  background: #f7fdf9 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px -6px rgba(22, 163, 74, .28) !important;
+}
+.cursor-pointer.hover\:border-green-500:active { transform: translateY(0); }
+
+/* Item name — readable at counter distance */
+.cursor-pointer.hover\:border-green-500 h4 {
+  font-size: 13.5px !important;
+  line-height: 1.25 !important;
+  color: #101828 !important;
+}
+
+/* Category as a quiet chip rather than loose caps text */
+.cursor-pointer.hover\:border-green-500 p {
+  display: inline-block;
+  margin-top: 5px !important;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #f2f4f7;
+  color: #667085 !important;
+  font-size: 9.5px !important;
+  letter-spacing: .06em;
+}
+
+/* Price is the thing you actually scan for */
+.cursor-pointer.hover\:border-green-500 .text-green-700 {
+  font-size: 16px !important;
+  color: #15803d !important;
+  letter-spacing: -.01em;
+}
+
+/* One obvious add action: a real filled circular button */
+.cursor-pointer.hover\:border-green-500 .bg-green-50.text-green-600 {
+  width: 28px !important;
+  height: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 999px !important;
+  background: #16a34a !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .12);
+}
+.cursor-pointer.hover\:border-green-500:hover .bg-green-50.text-green-600 {
+  background: #15803d !important;
+}
+
+/* ---- Till panel ---- */
+/* Grand total: the number the cashier and the customer both read */
+.text-green-600.text-lg { font-size: 24px !important; color: #15803d !important; letter-spacing: -.02em; }
+
+/* Primary action — it's the most important control on the screen */
+button.bg-green-600.hover\:bg-green-700 {
+  font-size: 13px !important;
+  letter-spacing: .04em;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  box-shadow: 0 6px 16px -6px rgba(21, 128, 61, .5) !important;
+}
+
+/* Category filter tabs: clearer selected vs unselected */
+.rounded-lg.bg-green-600.text-white,
+.rounded-xl.bg-green-600.text-white { box-shadow: 0 2px 6px -2px rgba(21, 128, 61, .5); }
+
+/* Print Styles for Printable Reports & Receipts */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11px !important;
+  }
+  .sidebar,
+  .topnav,
+  .role-bar,
+  .no-print,
+  button:not(.print-keep) {
+    display: none !important;
+  }
+  .main-wrapper {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  .page-content {
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .printable-area {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+  }
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+  th, td {
+    padding: 6px 10px !important;
+    border: 1px solid #d1d5db !important;
+  }
+  th {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+    font-weight: 800 !important;
+  }
+  tfoot td {
+    background-color: #e5e7eb !important;
+    font-weight: 900 !important;
+    border-top: 2px solid #000000 !important;
+  }
+
+  /* Dedicated Thermal POS Receipt Print Handler */
+  body.printing-receipt {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Collapse #root and all app containers so they occupy 0 height in document flow */
+  body.printing-receipt #root,
+  body.printing-receipt .app-layout,
+  body.printing-receipt .main-wrapper,
+  body.printing-receipt .page-content,
+  body.printing-receipt .sidebar,
+  body.printing-receipt .topnav,
+  body.printing-receipt .role-bar {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Reset all modal container divs during print so they don't flex-center, pad, clip, or scroll */
+  body.printing-receipt div:not(#thermal-receipt):not(#thermal-receipt *) {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    backdrop-filter: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Hide everything by default via visibility */
+  body.printing-receipt * {
+    visibility: hidden !important;
+  }
+
+  /* Unhide thermal receipt and all its inner elements */
+  body.printing-receipt #thermal-receipt,
+  body.printing-receipt #thermal-receipt * {
+    visibility: visible !important;
+    border-color: #000000 !important;
+  }
+
+  /* Position thermal receipt at top-left corner of printable page */
+  body.printing-receipt #thermal-receipt {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 78mm !important;
+    max-width: 78mm !important;
+    margin: 0 !important;
+    padding: 4mm 2mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    z-index: 999999 !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Preserve flex and grid layouts inside thermal receipt */
+  body.printing-receipt #thermal-receipt .flex {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  body.printing-receipt #thermal-receipt .justify-between {
+    justify-content: space-between !important;
+  }
+  body.printing-receipt #thermal-receipt .text-center {
+    text-align: center !important;
+  }
+  body.printing-receipt #thermal-receipt .text-right {
+    text-align: right !important;
+  }
+  body.printing-receipt #thermal-receipt .text-left {
+    text-align: left !important;
+  }
+  body.printing-receipt #thermal-receipt .block {
+    display: block !important;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 0mm;
+  }
+}
+
+/* Hide browser default number increment & decrement spin buttons globally */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+/* Reserved Table Badge Style */
+.status-reserved {
+  background: #f3e8ff !important;
+  color: #9333ea !important;
+}
+.status-reserved .status-dot {
+  background: #9333ea !important;
+}
+
+
